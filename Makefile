@@ -729,7 +729,7 @@ ifeq ($(cc-name),gcc)
 KBUILD_CFLAGS	+= -mcpu=cortex-a76.cortex-a55+crypto+crc+lse+fp16+rcpc+rdma+dotprod -mtune=cortex-a76.cortex-a55
 endif
 ifeq ($(cc-name),clang)
-KBUILD_CFLAGS	+= -mcpu=cortex-a55 -mtune=cortex-a55
+KBUILD_CFLAGS	+= -march=armv8.2-a -mtune=cortex-a55
 
 ifdef CONFIG_LLVM_POLLY
 KBUILD_CFLAGS	+= -mllvm -polly \
