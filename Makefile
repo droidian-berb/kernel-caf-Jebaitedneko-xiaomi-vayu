@@ -429,7 +429,8 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -pipe \
 		   -Wno-unused-variable \
 		   -Wno-unused-label \
 		   -Wno-unused-function \
-		   -Wdeclaration-after-statement
+		   -Wdeclaration-after-statement \
+		   -Wno-macro-redefined
 
 ifeq ($(TARGET_BOARD_TYPE),auto)
 KBUILD_CFLAGS    += -DCONFIG_PLATFORM_AUTO
