@@ -8,7 +8,7 @@
 VARIANT = android
 
 # Kernel base version
-KERNEL_BASE_VERSION = 4.14-0
+KERNEL_BASE_VERSION = 4.14-271
 
 # The kernel cmdline to use
 KERNEL_BOOTIMAGE_CMDLINE = androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 androidboot.usbcontroller=a600000.dwc3 console=tty0 console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0x4a90000 androidboot.memcg=1 buildvariant=userdebug binder.global_pid_lookups=0 droidian.lvm.prefer
@@ -33,8 +33,8 @@ KERNEL_CONFIG_USE_FRAGMENTS = 1
 # Enable kernel config device extra fragments
 KERNEL_CONFIG_USE_EXTRA_FRAGMENTS = 1
 KERNEL_CONFIG_EXTRA_FRAGMENTS = vayu-halium.config
-KERNEL_CONFIG_USE_DEVEL_FRAGMENTS = 0
-# KERNEL_CONFIG_DEVEL_FRAGMENTS = vayu-test.config vayu-develop.config
+KERNEL_CONFIG_USE_DEVEL_FRAGMENTS = 1
+KERNEL_CONFIG_DEVEL_FRAGMENTS = vayu-test.config vayu-test-crdroid-configs.config #vayu-develop.config
 KERNEL_CONFIG_USE_DEBUG_FRAGMENTS = 0
 # KERNEL_CONFIG_DEBUG_FRAGMENTS = vayu-debug.config common_fragments/debug.config
 
@@ -196,7 +196,7 @@ BUILD_CROSS = 1
 # (Cross-build only) The build triplet to use. You'll probably want to
 # use aarch64-linux-android- if building Android kernels.
 # might need to use aarch64-linux-gnu- with newer kernels such as GKI
-BUILD_TRIPLET = aarch64-linux-android-
+BUILD_TRIPLET = aarch64-linux-gnu-
 
 # (Cross-build only) The build triplet to use with clang. You'll probably
 # want to use aarch64-linux-gnu- here.
