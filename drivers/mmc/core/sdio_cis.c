@@ -58,11 +58,19 @@ static int cistpl_vers_1(struct mmc_card *card, struct sdio_func *func,
 
 	string = (char*)(buffer + nr_strings);
 
+	size_t string_size = sizeof(buffer) - sizeof(char*) * nr_strings;  // available zize for `string`
+
 	for (i = 0; i < nr_strings; i++) {
 		buffer[i] = string;
-		strlcpy(string, buf, strlen(buf) + 1);
-		string += strlen(string) + 1;
-		buf += strlen(buf) + 1;
+		size_t len = strlen(buf) + 1;
+		if (len > string_size) {
+			// error
+			return -ENOMEM;
+	}
+	// use same source size in dest buffer
+	strlcpy(string, buf, len);
+	string += len;
+	buf += len;
 	}
 
 	if (func) {
