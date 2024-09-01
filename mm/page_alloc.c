@@ -7048,20 +7048,23 @@ void __init mem_init_print_info(const char *str)
 	 *    please refer to arch/tile/kernel/vmlinux.lds.S.
 	 * 3) .rodata.* may be embedded into .text or .data sections.
 	 */
+
 #define adj_init_size(start, end, size, pos, adj) \
-	do { \
-		if (start <= pos && pos < end && size > adj) \
-			size -= adj; \
-	} while (0)
+    do { \
+        uintptr_t start_addr = (uintptr_t)(start); \
+        uintptr_t end_addr = (uintptr_t)(end); \
+        uintptr_t pos_addr = (uintptr_t)(pos); \
+        if (start_addr <= pos_addr && pos_addr < end_addr && size > adj) \
+            size -= adj; \
+    } while (0)
 
-	adj_init_size(__init_begin[0], __init_end, init_data_size,
-		     _sinittext[0], init_code_size);
-	adj_init_size(_stext[0], _etext, codesize, _sinittext[0], init_code_size);
-	adj_init_size(_sdata[0], _edata, datasize, __init_begin[0], init_data_size);
-	adj_init_size(_stext[0], _etext, codesize, __start_rodata[0], rosize);
-	adj_init_size(_sdata[0], _edata, datasize, __start_rodata[0], rosize);
+    adj_init_size(__init_begin[0], __init_end, init_data_size, _sinittext[0], init_code_size);
+    adj_init_size(_stext[0], _etext, codesize, _sinittext[0], init_code_size);
+    adj_init_size(_sdata[0], _edata, datasize, __init_begin[0], init_data_size);
+    adj_init_size(_stext[0], _etext, codesize, __start_rodata[0], rosize);
+    adj_init_size(_sdata[0], _edata, datasize, __start_rodata[0], rosize);
 
-#undef	adj_init_size
+#undef  adj_init_size
 
 	pr_info("Memory: %luK/%luK available (%luK kernel code, %luK rwdata, %luK rodata, %luK init, %luK bss, %luK reserved, %luK cma-reserved"
 #ifdef	CONFIG_HIGHMEM
