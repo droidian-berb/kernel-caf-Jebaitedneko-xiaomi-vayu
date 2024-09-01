@@ -12,6 +12,9 @@
 
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
+#define BOOST_BUF_SIZE 128
+#define SENSOR_TEMP_SIZE 128
+
 #include <linux/module.h>
 #include <linux/device.h>
 #include <linux/err.h>
@@ -1695,7 +1698,7 @@ thermal_boost_store(struct device *dev,
 				      struct device_attribute *attr, const char *buf, size_t len)
 {
 	int ret;
-	ret = snprintf(boost_buf, PAGE_SIZE, buf);
+	ret = snprintf(boost_buf, BOOST_BUF_SIZE, "%s", buf);
 	return len;
 }
 
@@ -1778,7 +1781,7 @@ static ssize_t
 thermal_board_sensor_temp_store(struct device *dev,
 				struct device_attribute *attr, const char *buf, size_t len)
 {
-       snprintf(board_sensor_temp, PAGE_SIZE, buf);
+       snprintf(board_sensor_temp, SENSOR_TEMP_SIZE, "%s", buf);
 
        return len;
 }
